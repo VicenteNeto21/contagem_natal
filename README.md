@@ -3,7 +3,7 @@
 # Descrição
 - contagem regressiva para o dia do Natal de 2022.
 # Versão
-- 1.1.0 Beta
+- 2.1.1 Alpha
 # Linguagens Usadas
 - JS
 - HTML

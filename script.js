@@ -47,7 +47,7 @@ function contagem() {
     document.getElementById("days").innerHTML = " ";
     document.getElementById("hours").innerHTML = " ";
     document.getElementById("minutes").innerHTML = " ";
-    document.getElementById("seconds").innerHTML = "<small>FIM</small>";
+    document.getElementById("seconds").innerHTML = " ";
     document.getElementById("mensagem").innerHTML =
       "<small>Feliz Natal, HO HO HO HO</small>";
   }

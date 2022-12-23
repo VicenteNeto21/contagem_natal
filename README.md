@@ -10,6 +10,8 @@
 - Manutenção na tag Main
 - Adicionado Favicon
 - Rodapé
+- Mensagens de Natal Corriginda
+- Anuncios adicionados
 # Linguagens Usadas
 - JS
 - HTML

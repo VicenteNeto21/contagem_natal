@@ -20,7 +20,7 @@ function contagem() {
 
   //coloque a data aqui para alterar os dias da contagem
 
-  var dataEvento = new Date("Dec 25, 2022 03:00:00");
+  var dataEvento = new Date("Dec 25, 2023 00:00:00");
   var tempoAtual = now.getTime(); //nosso horário
   var tempoEvento = dataEvento.getTime();
   var totalTempo = tempoEvento - tempoAtual;
@@ -54,7 +54,7 @@ function contagem() {
     document.getElementById("minutes").innerHTML = "<small>00</small>";
     document.getElementById("seconds").innerHTML = "<small>00</small> ";
     document.getElementById("mensagem").innerHTML =
-      "<small>Não poderia deixar essa data passar! Feliz natal e um próspero ano novo para todos, que vocês possam passar esse dia com a família em paz, e que o maior presente foi o nascimento de Jesus e vocês poderem estar unidos com as pessoas que se ama. Encham a pança! <br/> <br/>Fiquem com Deus, até a próxima!</small>";
+      "<small>Que este Natal renove o seu coração e as suas energias! <br/> <br/>Fiquem com Deus, até a próxima!</small>";
   }
 }
 contagem();

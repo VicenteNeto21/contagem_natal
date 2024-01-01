@@ -257,3 +257,12 @@ a:hover{
     -webkit-animation-delay:4s,2.5s;
     animation-delay:2s,1.5s
 }
+
+span#aviso{
+  background: #d90f5a;
+  text-align: center;
+  color: #fff;
+  justify-items: center;
+  border-radius: 0 0 20px;
+  padding: 15px
+}

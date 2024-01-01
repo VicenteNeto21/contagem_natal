@@ -20,7 +20,7 @@ function contagem() {
 
   //coloque a data aqui para alterar os dias da contagem
 
-  var dataEvento = new Date("Dec 25, 2023 00:00:00");
+  var dataEvento = new Date("Dec 25, 2024 00:00:00");
   var tempoAtual = now.getTime(); //nosso horário
   var tempoEvento = dataEvento.getTime();
   var totalTempo = tempoEvento - tempoAtual;

@@ -1,0 +1,115 @@
+/* ==========================================================================
+   CONTAGEM DE NATAL 2.0 - RESPONSIVE DESIGN
+   Mobile-First e Breakpoints para Telas Médias e Grandes
+   ========================================================================== */
+
+/* Telas Pequenas (Smartphones até 640px) */
+@media (max-width: 640px) {
+  .hero-countdown {
+    padding: 2rem 0.5rem 1.5rem;
+  }
+
+  .countdown-grid {
+    gap: 0.5rem;
+  }
+
+  .time-card {
+    min-width: 68px;
+    padding: 0.75rem 0.35rem;
+    flex: 1 1 calc(25% - 0.5rem);
+  }
+
+  .time-number {
+    font-size: 1.85rem;
+  }
+
+  .time-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.5px;
+  }
+
+  .player-main-view {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .player-cover-box {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto;
+  }
+
+  .player-spacer {
+    display: none;
+  }
+
+  .player-controls-bar {
+    justify-content: center;
+  }
+
+  .player-playback-group {
+    justify-content: center;
+  }
+
+  .volume-container {
+    display: none; /* Em smartphones o volume é controlado pelos botões físicos do aparelho */
+  }
+
+  .card-generator-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .festive-section {
+    padding: 1.5rem 1rem;
+    margin-top: 2rem;
+  }
+
+  .advent-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.4rem;
+  }
+
+  .advent-card {
+    padding: 0.35rem;
+  }
+
+  .advent-day-num {
+    font-size: 1.25rem;
+  }
+
+  .toolbar-controls .tool-btn span:last-child {
+    display: none; /* Mostra apenas o ícone na barra superior em telas ultra pequenas */
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-actions .btn-primary, .hero-actions .btn-secondary {
+    width: 100%;
+  }
+}
+
+/* Telas Médias (Tablets de 641px a 1024px) */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .app-container {
+    padding: var(--space-lg);
+  }
+
+  .card-generator-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .advent-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+/* Telas Grandes (Desktop acima de 1025px) */
+@media (min-width: 1025px) {
+  .advent-grid {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+

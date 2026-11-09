@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vicenteneto21.github.io/contagem_natal/sitemap.xml
+

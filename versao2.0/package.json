@@ -1,0 +1,12 @@
+{
+  "name": "contagem-natal",
+  "version": "2.0.0",
+  "description": "Contagem de Natal 2.0 - Aplicação web moderna, interativa e festiva com contagem perpétua.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  },
+  "author": "Vicente Neto",
+  "license": "MIT"
+}
+

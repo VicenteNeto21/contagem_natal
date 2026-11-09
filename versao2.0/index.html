@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contagem de Natal 2.0 • Contagem Regressiva para o Natal</title>
+  
+  <!-- Metadados de SEO & Indexação -->
+  <meta name="description" content="Acompanhe a contagem regressiva em tempo real para o Natal com músicas natalinas, calendário do advento, mensagens inspiradoras e gerador de cartões virtuais.">
+  <meta name="author" content="Vicente Neto">
+  <meta name="robots" content="index, follow">
+  <meta name="keywords" content="Natal, Contagem de Natal, Contagem Regressiva, Calendário do Advento, Músicas de Natal, Cartão de Natal, Vicente Neto">
+  <meta name="theme-color" content="#081a16">
+
+  <!-- Open Graph / Redes Sociais -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Contagem de Natal 2.0 • O Natal está chegando!">
+  <meta property="og:description" content="Contagem regressiva em tempo real para o Natal, com músicas locais, mensagens diárias e cartões personalizados.">
+  <meta property="og:image" content="./assets/images/default-cover.svg">
+  <meta property="og:locale" content="pt_BR">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Contagem de Natal 2.0">
+  <meta name="twitter:description" content="Acompanhe os dias, horas, minutos e segundos até o Natal!">
+  <meta name="twitter:image" content="./assets/images/default-cover.svg">
+
+  <!-- Favicon e PWA -->
+  <link rel="icon" type="image/png" href="./assets/images/favicon.png">
+  <link rel="apple-touch-icon" href="./assets/images/favicon.png">
+  <link rel="manifest" href="./manifest.json">
+
+  <!-- CSS Modular -->
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./css/components.css">
+  <link rel="stylesheet" href="./css/animations.css">
+  <link rel="stylesheet" href="./css/responsive.css">
+
+  <!-- Dados Estruturados (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Contagem de Natal 2.0",
+    "applicationCategory": "EntertainmentApplication",
+    "operatingSystem": "All",
+    "author": {
+      "@type": "Person",
+      "name": "Vicente Neto"
+    },
+    "description": "Contagem regressiva moderna e interativa para o Natal com calendário do advento, reprodutor musical e gerador de cartões natalinos."
+  }
+  </script>
+</head>
+<body>
+  <!-- Link de salto para acessibilidade -->
+  <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+  <!-- Canvas da Neve Interativa -->
+  <canvas id="snow-canvas" aria-hidden="true"></canvas>
+
+  <!-- Barra Superior de Ferramentas -->
+  <header class="top-toolbar" role="banner">
+    <a href="#" class="brand-badge" aria-label="Contagem de Natal 2.0 Início">
+      <i data-lucide="trees" style="color: var(--color-gold);"></i>
+      <span>Contagem de Natal 2.0</span>
+    </a>
+    <div class="toolbar-controls">
+      <button id="toggle-snow-btn" class="tool-btn" type="button" aria-pressed="true" title="Ativar ou desativar animação da neve">
+        <i data-lucide="snowflake"></i>
+        <span>Neve</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main-content" class="app-container" role="main">
+    <!-- ====================================================================
+         HERO SECTION: CONTADOR REGRESSIVO
+         ==================================================================== -->
+    <section class="hero-countdown" aria-labelledby="hero-title">
+      <p class="hero-subtitle">
+        <i data-lucide="sparkles" style="color: var(--color-gold); margin-right: 4px;"></i>
+        Celebração &bull; Natal <span id="target-year-badge">2026</span>
+      </p>
+      <h1 id="hero-title" class="hero-title">O Natal está chegando!</h1>
+      <p class="hero-tagline">
+        Sinta a magia no ar. Cada segundo nos aproxima de momentos inesquecíveis ao lado de quem amamos.
+      </p>
+
+      <!-- Banner Festivo exibido no dia 25 de Dezembro -->
+      <article id="christmas-arrival-banner" class="christmas-arrival-banner" role="region" aria-label="Mensagem de Feliz Natal">
+        <h2 class="arrival-title">Feliz Natal!</h2>
+        <p class="arrival-text">
+          Que esta data seja repleta de amor, paz, esperança e momentos verdadeiramente especiais ao lado da sua família!
+        </p>
+      </article>
+
+      <!-- Grade dos Números da Contagem -->
+      <div id="countdown-dashboard" class="countdown-grid" role="timer" aria-live="off">
+        <div class="time-card">
+          <span id="days-val" class="time-number">00</span>
+          <span class="time-label">Dias</span>
+        </div>
+        <div class="time-card">
+          <span id="hours-val" class="time-number">00</span>
+          <span class="time-label">Horas</span>
+        </div>
+        <div class="time-card">
+          <span id="minutes-val" class="time-number">00</span>
+          <span class="time-label">Minutos</span>
+        </div>
+        <div class="time-card">
+          <span id="seconds-val" class="time-number">00</span>
+          <span class="time-label">Segundos</span>
+        </div>
+      </div>
+
+      <!-- Barra de Progresso Anual -->
+      <div class="progress-container" aria-label="Progresso do ano até o Natal">
+        <div class="progress-header">
+          <span>Jornada até o Natal</span>
+          <span id="progress-percent">0%</span>
+        </div>
+        <div class="progress-bar-track">
+          <div id="progress-fill" class="progress-bar-fill"></div>
+        </div>
+      </div>
+
+      <!-- Botões de Ação do Hero -->
+      <div class="hero-actions">
+        <button id="share-hero-btn" class="btn-primary" type="button">
+          <i data-lucide="share-2"></i>
+          <span>Compartilhar Contagem</span>
+        </button>
+        <a href="#experiencia-natalina" class="btn-secondary">
+          <i data-lucide="compass"></i>
+          <span>Explorar Experiência</span>
+        </a>
+      </div>
+    </section>
+
+    <div id="experiencia-natalina"></div>
+
+    <!-- ====================================================================
+         SEÇÃO 1: MENSAGENS DE NATAL
+         ==================================================================== -->
+    <section class="festive-section" aria-labelledby="messages-section-title">
+      <div class="section-header">
+        <span class="section-tag">Inspiração Diária</span>
+        <h2 id="messages-section-title" class="section-title">Mensagens de Natal</h2>
+        <p class="section-desc">Palavras de carinho, paz e reflexão para aquecer seu coração e compartilhar com quem você ama.</p>
+      </div>
+
+      <div class="messages-box">
+        <!-- Filtros de Categorias -->
+        <div class="category-tags" role="group" aria-label="Categorias de mensagens">
+          <button class="category-btn active" data-category="all" type="button">Todas</button>
+          <button class="category-btn" data-category="familia" type="button">Família</button>
+          <button class="category-btn" data-category="amizade" type="button">Amizade</button>
+          <button class="category-btn" data-category="esperanca" type="button">Esperança</button>
+          <button class="category-btn" data-category="reflexao" type="button">Reflexão</button>
+          <button class="category-btn" data-category="gratidao" type="button">Gratidão</button>
+          <button class="category-btn" data-category="cristas" type="button">Cristãs</button>
+          <button class="category-btn" data-category="celebracao" type="button">Celebração</button>
+        </div>
+
+        <!-- Card de Exibição da Mensagem -->
+        <article class="message-display-card">
+          <p id="message-quote-text" class="message-quote">"Carregando mensagem especial..."</p>
+          <span id="message-category-label" class="message-category-label">Inspiração</span>
+        </article>
+
+        <!-- Ações da Mensagem -->
+        <div class="message-actions">
+          <button id="next-message-btn" class="btn-primary" type="button">
+            <i data-lucide="refresh-cw"></i>
+            <span>Nova Mensagem</span>
+          </button>
+          <button id="copy-message-btn" class="btn-secondary" type="button">
+            <i data-lucide="copy"></i>
+            <span>Copiar Mensagem</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SEÇÃO 2: CALENDÁRIO DO ADVENTO
+         ==================================================================== -->
+    <section class="festive-section" aria-labelledby="advent-section-title">
+      <div class="section-header">
+        <span class="section-tag">1 a 24 de Dezembro</span>
+        <h2 id="advent-section-title" class="section-title">Calendário do Advento</h2>
+        <p class="section-desc">Abra uma nova surpresa a cada dia de dezembro até a véspera de Natal. Cartões desbloqueiam no dia correspondente!</p>
+      </div>
+
+      <!-- Grade dos 24 dias -->
+      <div id="advent-grid" class="advent-grid" role="region" aria-label="Portas do Calendário do Advento">
+        <!-- Gerado via JavaScript com ícones Lucide -->
+      </div>
+    </section>
+
+    <!-- Modal de Revelação do Advento -->
+    <div id="advent-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-surprise-title">
+      <div class="modal-content">
+        <button id="modal-close-btn" class="modal-close-btn" type="button" aria-label="Fechar janela">
+          <i data-lucide="x"></i>
+        </button>
+        <div id="modal-icon-badge" class="modal-icon-box" style="margin-bottom: 0.75rem; color: var(--color-gold);" aria-hidden="true">
+          <!-- Ícone injetado dinamicamente -->
+        </div>
+        <p id="modal-day-badge" class="modal-day-badge">Dia de Dezembro</p>
+        <h3 id="modal-surprise-title" class="modal-surprise-title">Título da Surpresa</h3>
+        <p id="modal-surprise-body" class="modal-surprise-body">Texto da surpresa natalina...</p>
+        <button class="btn-primary" type="button" onclick="document.getElementById('advent-modal').classList.remove('open')">
+          Fechar
+        </button>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         SEÇÃO 3: MÚSICA DE NATAL (PLAYER)
+         ==================================================================== -->
+    <section class="festive-section music-section" aria-labelledby="music-section-title">
+      <div class="section-header">
+        <span class="section-tag">Trilha Sonora</span>
+        <h2 id="music-section-title" class="section-title">Músicas de Natal</h2>
+        <p class="section-desc">Canções clássicas para embalar os seus momentos festivos.</p>
+      </div>
+
+      <div class="music-player-card">
+        <div class="player-main-view">
+          <div class="player-cover-box">
+            <img id="player-cover-img" class="player-cover-img" src="./assets/images/default-cover.svg" alt="Capa da música de Natal">
+          </div>
+          <div class="player-details">
+            <h3 id="track-title-txt" class="track-title">Carregando música...</h3>
+            <p id="track-artist-txt" class="track-artist">Artista</p>
+
+            <div class="player-progress-area">
+              <span id="current-time-txt" class="time-display">00:00</span>
+              <input id="player-range" class="player-range" type="range" min="0" max="100" value="0" aria-label="Progresso da música">
+              <span id="total-duration-txt" class="time-display">00:00</span>
+            </div>
+
+            <div class="player-controls-bar">
+              <div class="player-spacer" aria-hidden="true"></div>
+              <div class="player-playback-group">
+                <button id="player-prev-btn" class="ctrl-btn" type="button" aria-label="Música anterior">
+                  <i data-lucide="skip-back"></i>
+                </button>
+                <button id="player-play-btn" class="ctrl-btn play-pause-btn" type="button" aria-label="Reproduzir música">
+                  <i data-lucide="play"></i>
+                </button>
+                <button id="player-next-btn" class="ctrl-btn" type="button" aria-label="Próxima música">
+                  <i data-lucide="skip-forward"></i>
+                </button>
+              </div>
+
+              <div class="volume-container" title="Controle de volume">
+                <span class="ui-icon" aria-hidden="true">
+                  <i data-lucide="volume-2"></i>
+                </span>
+                <input id="volume-range" class="volume-slider" type="range" min="0" max="1" step="0.05" value="0.8" aria-label="Volume da música">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lista de Faixas -->
+        <div class="playlist-container">
+          <p class="playlist-header">Músicas Disponíveis:</p>
+          <ul id="playlist-items" class="playlist-list" role="list">
+            <!-- Renderizado dinamicamente -->
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SEÇÃO 4: CARTÕES DIGITAIS
+         ==================================================================== -->
+    <section class="festive-section" aria-labelledby="cards-section-title">
+      <div class="section-header">
+        <span class="section-tag">Personalize &amp; Envie</span>
+        <h2 id="cards-section-title" class="section-title">Gerador de Cartões Digitais</h2>
+        <p class="section-desc">Crie um lindo cartão natalino personalizado e baixe a imagem para enviar aos seus amigos e familiares.</p>
+      </div>
+
+      <div class="card-generator-wrapper">
+        <!-- Formulário de Personalização -->
+        <form class="card-form" onsubmit="event.preventDefault();">
+          <div class="form-group">
+            <label class="form-label">Modelo Visual:</label>
+            <div class="template-choices" role="radiogroup" aria-label="Modelos de cartão">
+              <button type="button" class="template-thumb active" data-template="classic-red">Vermelho Nobre</button>
+              <button type="button" class="template-thumb" data-template="forest-green">Floresta</button>
+              <button type="button" class="template-thumb" data-template="midnight-gold">Noite Dourada</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="card-to-input" class="form-label">Para quem é o cartão?</label>
+            <input id="card-to-input" class="form-input" type="text" placeholder="Ex: Família Silva, Vovó Maria..." value="Querido(a) Amigo(a)" maxlength="40">
+          </div>
+
+          <div class="form-group">
+            <label for="card-message-input" class="form-label">Sua Mensagem:</label>
+            <textarea id="card-message-input" class="form-textarea" rows="3" maxlength="150">Que a luz e a paz do Natal iluminem o seu caminho e tragam momentos inesquecíveis!</textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="card-from-input" class="form-label">Seu Nome / Remetente:</label>
+            <input id="card-from-input" class="form-input" type="text" placeholder="Ex: João, Família Santos..." value="Com muito carinho" maxlength="40">
+          </div>
+
+          <button id="card-download-btn" class="btn-primary" type="button" style="margin-top: 0.5rem;">
+            <i data-lucide="download"></i>
+            <span>Baixar Cartão em Imagem (PNG)</span>
+          </button>
+        </form>
+
+        <!-- Pré-visualização do Canvas -->
+        <div class="card-preview-area">
+          <canvas id="card-canvas" width="800" height="1000" role="img" aria-label="Pré-visualização do Cartão de Natal"></canvas>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Botão de Voltar ao Topo -->
+  <button id="scroll-top-btn" class="scroll-top-btn" type="button" aria-label="Voltar ao topo da página">
+    <i data-lucide="arrow-up"></i>
+  </button>
+
+  <!-- Rodapé do Aplicativo -->
+  <footer class="app-footer" role="contentinfo">
+    <p>
+      Desenvolvido originalmente por <strong>Vicente Neto</strong> &bull; Versão 2.0.0
+    </p>
+    <p class="footer-meta">
+      Contagem perpétua automatizada &bull; Hospedado no <a href="https://github.com/VicenteNeto21/contagem_natal" target="_blank" rel="noopener noreferrer">GitHub Pages</a>
+    </p>
+  </footer>
+
+  <!-- Biblioteca de Ícones Lucide (Local com fallback CDN) -->
+  <script src="./assets/vendor/lucide.min.js"></script>
+
+  <!-- Script Modular ES6 -->
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

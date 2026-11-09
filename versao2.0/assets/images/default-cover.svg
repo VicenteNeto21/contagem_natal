@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#1b4d3e" />
+      <stop offset="100%" stop-color="#071e17" />
+    </radialGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f6e27a" />
+      <stop offset="50%" stop-color="#d9b76e" />
+      <stop offset="100%" stop-color="#b08a3e" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="400" height="400" rx="24" fill="url(#bgGrad)"/>
+  <circle cx="200" cy="180" r="130" fill="none" stroke="url(#goldGrad)" stroke-width="2" stroke-dasharray="6,6" opacity="0.4"/>
+  <!-- Christmas Tree Silhouette -->
+  <polygon points="200,90 230,140 215,140 245,190 225,190 260,245 140,245 175,190 155,190 185,140 170,140" fill="#2d6a4f"/>
+  <polygon points="200,90 215,140 200,140 230,190 210,190 240,245 200,245" fill="#40916c"/>
+  <rect x="192" y="245" width="16" height="25" rx="3" fill="#8b5a2b"/>
+  <!-- Tree Star -->
+  <polygon points="200,75 204,87 217,87 206,95 210,107 200,100 190,107 194,95 183,87 196,87" fill="url(#goldGrad)" filter="url(#glow)"/>
+  <!-- Baubles -->
+  <circle cx="185" cy="155" r="5" fill="#c62828" filter="url(#glow)"/>
+  <circle cx="215" cy="165" r="4.5" fill="url(#goldGrad)"/>
+  <circle cx="170" cy="210" r="6" fill="url(#goldGrad)"/>
+  <circle cx="230" cy="215" r="5.5" fill="#c62828" filter="url(#glow)"/>
+  <circle cx="200" cy="225" r="5" fill="#48cae4"/>
+  <circle cx="195" cy="180" r="4" fill="#f4a261"/>
+  <!-- Musical notes -->
+  <path d="M 100 130 Q 110 110 130 115 L 130 145 M 100 130 L 100 160 A 10 8 0 1 1 85 155" fill="none" stroke="url(#goldGrad)" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M 290 120 Q 300 100 320 105 L 320 135 M 290 120 L 290 150 A 10 8 0 1 1 275 145" fill="none" stroke="url(#goldGrad)" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Text Label -->
+  <text x="200" y="320" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="600" fill="url(#goldGrad)" letter-spacing="2">CONTAGEM DE NATAL</text>
+  <text x="200" y="348" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="400" fill="#ffffff" opacity="0.8">Música &amp; Celebração</text>
+</svg>

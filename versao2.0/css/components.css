@@ -1,0 +1,746 @@
+/* ==========================================================================
+   CONTAGEM DE NATAL 2.0 - COMPONENTS
+   Contador Hero, Player de Música, Calendário do Advento, Mensagens e Cartões
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. HERO SECTION & CONTADOR REGRESSIVO
+   -------------------------------------------------------------------------- */
+.hero-countdown {
+  text-align: center;
+  padding: 3rem 1rem 2rem;
+  position: relative;
+}
+
+.hero-subtitle {
+  color: var(--color-gold);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: var(--space-xs);
+}
+
+.hero-title {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 30px rgba(217, 183, 110, 0.25);
+  margin-bottom: var(--space-sm);
+  line-height: 1.2;
+}
+
+.hero-tagline {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-base);
+  max-width: 620px;
+  margin: 0 auto var(--space-xl);
+}
+
+/* Grid das Caixas de Tempo */
+.countdown-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+  flex-wrap: wrap;
+}
+
+.time-card {
+  background: linear-gradient(180deg, rgba(23, 74, 53, 0.7) 0%, rgba(10, 35, 27, 0.9) 100%);
+  border: 1px solid var(--color-border-glow);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-md);
+  padding: 1.2rem 1rem;
+  min-width: 105px;
+  max-width: 140px;
+  flex: 1 1 100px;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.time-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-gold-light);
+}
+
+.time-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+.time-number {
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  display: block;
+}
+
+.time-label {
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--color-gold);
+  font-weight: 600;
+  margin-top: 0.35rem;
+  display: block;
+}
+
+/* Barra de Progresso Anual até o Natal */
+.progress-container {
+  max-width: 540px;
+  margin: 0 auto var(--space-lg);
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--color-border-subtle);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-full);
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-bottom: 0.3rem;
+  padding: 0 0.5rem;
+}
+
+.progress-bar-track {
+  width: 100%;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-gold));
+  border-radius: var(--radius-full);
+  transition: width 0.8s ease-in-out;
+  box-shadow: 0 0 10px rgba(217, 183, 110, 0.5);
+}
+
+/* Ações do Hero (Compartilhar, Calendário) */
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+/* Banner de Chegada do Natal */
+.christmas-arrival-banner {
+  display: none;
+  background: linear-gradient(135deg, rgba(198, 40, 40, 0.85), rgba(120, 20, 20, 0.95));
+  border: 2px solid var(--color-gold);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl) var(--space-lg);
+  margin-bottom: var(--space-xl);
+  text-align: center;
+  box-shadow: 0 0 40px rgba(217, 183, 110, 0.3);
+  animation: pulseGlow 3s infinite ease-in-out;
+}
+
+.christmas-arrival-banner.active {
+  display: block;
+}
+
+.arrival-title {
+  font-size: var(--font-size-3xl);
+  color: var(--color-gold-light);
+  font-weight: 800;
+  margin-bottom: var(--space-sm);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.arrival-text {
+  font-size: var(--font-size-lg);
+  color: #ffffff;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+/* --------------------------------------------------------------------------
+   2. PLAYER DE MÚSICA NATALINA (DESIGN LIMPO & SEM SOMBRAS)
+   -------------------------------------------------------------------------- */
+.music-section {
+  box-shadow: none;
+}
+
+.music-player-card {
+  max-width: 720px;
+  margin: 0 auto;
+  background: rgba(10, 32, 24, 0.65);
+  border: 1px solid rgba(217, 183, 110, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  box-shadow: none; /* Remoção de sombras */
+}
+
+.player-main-view {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.player-cover-box {
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(217, 183, 110, 0.25);
+  box-shadow: none; /* Sem sombras */
+  background: #091f17;
+  position: relative;
+}
+
+.player-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.player-details {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.track-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0.15rem;
+  letter-spacing: 0.2px;
+}
+
+.track-artist {
+  font-size: 0.85rem;
+  color: var(--color-gold);
+  margin-bottom: 0.85rem;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+/* Área da Barra de Progresso */
+.player-progress-area {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.time-display {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+  min-width: 36px;
+  user-select: none;
+}
+
+/* Estilização moderna e plana para range inputs */
+.player-range {
+  flex-grow: 1;
+  height: 4px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  outline: none;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.player-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  border: none;
+  box-shadow: none; /* Sem sombra no slider */
+  transition: transform 0.15s ease;
+}
+
+.player-range::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+  background: var(--color-gold-light);
+}
+
+.player-range::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  border: none;
+  box-shadow: none;
+}
+
+/* Barra de Controles do Player */
+.player-controls-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.75rem;
+  position: relative;
+}
+
+.player-spacer {
+  width: 110px;
+}
+
+.player-playback-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ctrl-btn {
+  background: transparent;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.4rem;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease, transform 0.15s ease;
+  box-shadow: none;
+}
+
+.ctrl-btn:hover {
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+.ctrl-btn.play-pause-btn {
+  background: var(--color-gold);
+  color: #071e17;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  box-shadow: none; /* Remoção da sombra amarela */
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.ctrl-btn.play-pause-btn:hover {
+  background: var(--color-gold-light);
+  transform: scale(1.05);
+  box-shadow: none;
+}
+
+.volume-container {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-text-muted);
+  width: 110px;
+  justify-content: flex-end;
+}
+
+.volume-container .ui-icon,
+.volume-container .lucide {
+  color: var(--color-text-muted);
+  width: 16px;
+  height: 16px;
+}
+
+.volume-slider {
+  width: 75px;
+  height: 4px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  outline: none;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  border: none;
+  box-shadow: none;
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  border: none;
+  box-shadow: none;
+}
+
+/* Playlist do Player */
+.playlist-container {
+  margin-top: 0.5rem;
+  border-top: 1px solid rgba(217, 183, 110, 0.15);
+  padding-top: 1rem;
+}
+
+.playlist-header {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  letter-spacing: 1.2px;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.playlist-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.playlist-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.85rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  transition: all 0.2s ease;
+  box-shadow: none;
+}
+
+.playlist-item:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+}
+
+.playlist-item.active {
+  background: rgba(217, 183, 110, 0.1);
+  border: 1px solid rgba(217, 183, 110, 0.35);
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.playlist-item.active span {
+  color: var(--color-gold-light);
+}
+
+/* --------------------------------------------------------------------------
+   3. CALENDÁRIO DO ADVENTO (1 a 24 de Dezembro)
+   -------------------------------------------------------------------------- */
+.advent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+}
+
+.advent-card {
+  aspect-ratio: 1 / 1.1;
+  background: rgba(15, 48, 36, 0.8);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  cursor: pointer;
+  position: relative;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.advent-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-gold);
+}
+
+.advent-day-num {
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  color: var(--color-gold);
+  line-height: 1;
+}
+
+.advent-icon {
+  font-size: 1.15rem;
+  margin-top: 0.25rem;
+}
+
+.advent-card.locked {
+  opacity: 0.65;
+  background: rgba(7, 25, 19, 0.6);
+  cursor: not-allowed;
+}
+
+.advent-card.unlocked {
+  background: linear-gradient(135deg, rgba(27, 85, 62, 0.9), rgba(18, 59, 42, 0.9));
+  border-color: var(--color-gold);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.advent-card.opened {
+  background: rgba(198, 40, 40, 0.35);
+  border-color: var(--color-gold-light);
+}
+
+.advent-card.today {
+  border: 2px solid var(--color-gold-light);
+  animation: pulseCard 2s infinite ease-in-out;
+}
+
+/* Modal de Revelação do Advento */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+}
+
+.modal-overlay.open {
+  display: flex;
+}
+
+.modal-content {
+  background: linear-gradient(180deg, #103829 0%, #071e17 100%);
+  border: 2px solid var(--color-gold);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+  border-radius: var(--radius-lg);
+  max-width: 480px;
+  width: 100%;
+  padding: var(--space-xl);
+  text-align: center;
+  position: relative;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal-day-badge {
+  color: var(--color-gold);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-xs);
+}
+
+.modal-surprise-title {
+  font-size: var(--font-size-xl);
+  color: #ffffff;
+  margin-bottom: var(--space-sm);
+}
+
+.modal-surprise-body {
+  font-size: var(--font-size-base);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-bottom: var(--space-lg);
+}
+
+/* --------------------------------------------------------------------------
+   4. SEÇÃO DE MENSAGENS NATALINAS
+   -------------------------------------------------------------------------- */
+.messages-box {
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.category-tags {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-lg);
+}
+
+.category-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-text-muted);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.category-btn:hover, .category-btn.active {
+  background: var(--color-gold);
+  color: #071e17;
+  border-color: var(--color-gold);
+  font-weight: 600;
+}
+
+.message-display-card {
+  background: rgba(8, 26, 20, 0.7);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-xl) var(--space-lg);
+  margin-bottom: var(--space-lg);
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.message-quote {
+  font-size: var(--font-size-lg);
+  font-style: italic;
+  color: #ffffff;
+  line-height: 1.6;
+  margin-bottom: var(--space-sm);
+}
+
+.message-category-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-gold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.message-actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   5. GERADOR DE CARTÕES DIGITAIS (HTML5 CANVAS)
+   -------------------------------------------------------------------------- */
+.card-generator-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.card-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  text-align: left;
+}
+
+.form-label {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-gold);
+}
+
+.form-input, .form-textarea, .form-select {
+  background: rgba(7, 24, 18, 0.85);
+  border: 1px solid var(--color-border-subtle);
+  color: #ffffff;
+  padding: 0.65rem 0.9rem;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: var(--font-size-sm);
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.form-input:focus, .form-textarea:focus, .form-select:focus {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 8px rgba(217, 183, 110, 0.3);
+}
+
+.template-choices {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.template-thumb {
+  flex: 1;
+  padding: 0.5rem;
+  border: 2px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.3);
+  font-size: var(--font-size-xs);
+  transition: all var(--transition-fast);
+}
+
+.template-thumb.active {
+  border-color: var(--color-gold);
+  background: rgba(217, 183, 110, 0.15);
+  font-weight: 700;
+}
+
+.card-preview-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+#card-canvas {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  border: 2px solid var(--color-border-glow);
+}
+

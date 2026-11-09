@@ -1,0 +1,42 @@
+.agents
+
+# Gemini
+.gemini
+
+# VS Code
+.vscode
+.history
+.task-cache
+.serena
+
+# Large files
+*.mp4
+*.bin
+*.pt
+*.db
+*.idx
+
+# Environment files
+.env
+*.log
+
+# Python
+__pycache__/
+*.pyc
+.env
+.venv/
+venv/
+ENV/
+env/
+
+# Node.js
+node_modules/
+.next/
+.turbo/
+
+# Fonts
+.fonts/
+
+# Other
+*.swp
+

@@ -1,0 +1,75 @@
+/* ==========================================================================
+   CONTAGEM DE NATAL 2.0 - ANIMATIONS & ACCESSIBILITY
+   ========================================================================== */
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 25px rgba(217, 183, 110, 0.25);
+    border-color: var(--color-gold);
+  }
+  50% {
+    box-shadow: 0 0 45px rgba(217, 183, 110, 0.6);
+    border-color: var(--color-gold-light);
+  }
+}
+
+@keyframes pulseCard {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(217, 183, 110, 0.3);
+  }
+  50% {
+    transform: scale(1.04);
+    box-shadow: 0 0 20px rgba(217, 183, 110, 0.7);
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes gentleBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.anim-bounce {
+  animation: gentleBounce 2.5s infinite ease-in-out;
+}
+
+.anim-glow {
+  animation: pulseGlow 3s infinite ease-in-out;
+}
+
+/* Transições suaves */
+.fade-in {
+  animation: fadeIn 0.4s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --------------------------------------------------------------------------
+   ACESSIBILIDADE: PREFERS-REDUCED-MOTION
+   Desativa ou minimiza animações para usuários sensíveis a movimento
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  #snow-canvas {
+    display: none !important;
+  }
+
+  .time-card:hover, .advent-card:hover, .btn-primary:hover, .btn-secondary:hover {
+    transform: none !important;
+  }
+}
+
